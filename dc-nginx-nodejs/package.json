@@ -1,0 +1,10 @@
+{
+  "name": "nodejs-practice",
+  "version": "1.0.0",
+  "description": "nodejs image demo",
+  "author": "Amanda Ding <ading788@gmail.com>",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
