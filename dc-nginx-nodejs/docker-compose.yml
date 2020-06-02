@@ -22,5 +22,7 @@ services:
     image: nodejs
     container_name: nodejs
     volumes:
-      - .:/usr/src/service/
+      - ./app.js:/usr/src/service/app.js
     network_mode: bridge
+    ports:
+      - "8080:8080"
