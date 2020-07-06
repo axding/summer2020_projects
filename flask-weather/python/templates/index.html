@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>weather</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <style>
+        .header {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        .btn {
+            background: none;
+            border: none;
+            color: white;
+        }
+        .image {
+          background-color: #003366;
+          {% if data.weather %}
+          background-image: url('/static/{{ data.weather }}.jpg');
+          {% endif %}
+          
+        }
+        .jumbotron {
+          background: rgba(0, 0, 0, 0.5);
+        }
+
+        input[type=text] {
+          background-color: rgba(0, 0, 0, 0);
+          color: white;
+          border: none;
+          border-bottom: 2px solid white;
+          border-radius: 0;
+        }
+
+        ::placeholder { 
+          color: white !important;
+        }
+
+        .info-text {
+          background: rgba(0, 0, 0, 0.5);
+          border: none;
+          color: white;
+          position: absolute;
+          width: 325px;
+          top: 325px;
+          left: 50%;
+          padding: 20px;
+          text-align: center;
+          transform: translate(-50%, 0%);
+        }
+
+        h6 {
+          text-align: left;
+        }
+
+        h5 {
+          text-align: left;
+        }
+    </style>
+</head>
+
+<body class="image">
+  <div class="jumbotron text-center header" style="color: white;">
+    <h1>weather app</h1>
+  </div>
+  <center class="justify-content-center">
+    <form method="post" class="col-sm-6">
+      <div class="input-group md-form" style="background-color: #003366 !important; padding: 20px;">
+        <input type="text" class="form-control" name="city" placeholder="Enter city name">
+        <div class="input-group-append">
+          <button class="btn" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </center>
+  <div class="d-flex justify-content-center">
+    {% if data.error %}
+    <div class="info-text">
+        <h4>{{data.error}}</h4>
+    </div>
+    {% endif %}
+    {% if data.city%}
+    <div class="info-text">
+      <h3>{{data.city}} {{data.country_code}}</h3>
+        <h2>{{data.temp}}</h2>
+        <h4>{{data.desc}}</h4>
+        <h4>{{data.temp_min}} | {{data.temp_max}}</h4>
+        <h4>feels like : {{data.feel}}</h4>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col col-6">
+              <h6>sunrise</h6>
+              <h5>{{data.sunrise}} AM</h5>
+            </div>
+            <div class="col col-6">
+              <h6>sunset</h6>
+              <h5>{{data.sunset}} PM</h5>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col col-6">
+              <h6>humidity</h6>
+              <h5>{{data.humidity}}</h5>
+            </div>
+            <div class="col col-6">
+              <h6>pressure</h6>
+              <h5>{{data.pressure}} </h5>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col col-12">
+              <h6>wind</h6>
+              <h5>{{data.wind_speed}} {{data.wind_dir}}</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+    {% endif %}
+  </div>
+</body>
+
+</html>

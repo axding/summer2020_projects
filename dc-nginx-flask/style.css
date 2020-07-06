@@ -1,0 +1,42 @@
+body {
+  background-color: #860302;
+  text-align: center;
+  font-family: "Palatino Linotype";
+}
+
+button {
+  display: block;
+  width: 150px;
+  height: 40px;
+  border: none;
+  background-color: grey;
+  margin: 20px auto;
+  color: white;
+  font-size: 16px;
+  font-family: Helvetica;
+  border-radius: 2px;
+}
+
+button:hover {
+  background-color: white;
+  border: 2px solid grey;
+  color: black;
+}
+
+span {
+  font-size: 30px;
+}
+
+h1 {
+  background-color: #610100;
+  height: 40px;
+  padding: 10px 0;
+  color: white;
+}
+
+#container {
+  height: 500px;
+  width: 300px;
+  margin: 100px auto;
+  background-color: #FDFDFD;
+}
