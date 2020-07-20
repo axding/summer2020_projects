@@ -222,33 +222,149 @@ resource "kubernetes_service" "flask-service" {
   }
 }
 
-resource "kubernetes_ingress" "example_ingress" {
-  metadata {
-    name = "example-ingress"
+#resource "kubernetes_ingress" "example_ingress" {
+#  metadata {
+#    name = "example-ingress"
+#  }
+#
+#  spec {
+#    rule {
+#      http {
+#        path {
+#          backend {
+#            service_name = "nginx"
+#            service_port = 80
+#          }
+#
+#          path = "/"
+#        }
+#
+#        path {
+#          backend {
+#            service_name = "flask"
+#            service_port = 5000
+#          }
+#
+#          path = "/app1"
+#        }
+#      }
+#    }
+#  }
+#}
+
+provider "helm" {
+  version = "1.2.2"
+  kubernetes {
+    host = azurerm_kubernetes_cluster.cluster.kube_config[0].host
+
+    client_key             = base64decode(azurerm_kubernetes_cluster.cluster.kube_config[0].client_key)
+    client_certificate     = base64decode(azurerm_kubernetes_cluster.cluster.kube_config[0].client_certificate)
+    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.cluster.kube_config[0].cluster_ca_certificate)
+    load_config_file       = false
+  }
+}
+
+resource "helm_release" "ingress" {
+    name      = "ingress"
+    chart     = "stable/nginx-ingress"
+
+    set {
+        name  = "rbac.create"
+        value = "true"
+    }
+}
+
+resource "azurerm_virtual_network" "vnet" {
+  name                = "example-network"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  address_space       = ["10.254.0.0/16"]
+}
+
+resource "azurerm_subnet" "frontend" {
+  name                 = "frontend"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.254.0.0/24"]
+}
+
+resource "azurerm_subnet" "backend" {
+  name                 = "backend"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.254.2.0/24"]
+}
+
+resource "azurerm_public_ip" "pubip" {
+  name                = "example-pip"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  allocation_method   = "Dynamic"
+}
+
+# since these variables are re-used - a locals block makes this more maintainable
+locals {
+  backend_address_pool_name      = "${azurerm_virtual_network.vnet.name}-beap"
+  frontend_port_name             = "${azurerm_virtual_network.vnet.name}-feport"
+  frontend_ip_configuration_name = "${azurerm_virtual_network.vnet.name}-feip"
+  http_setting_name              = "${azurerm_virtual_network.vnet.name}-be-htst"
+  listener_name                  = "${azurerm_virtual_network.vnet.name}-httplstn"
+  request_routing_rule_name      = "${azurerm_virtual_network.vnet.name}-rqrt"
+  redirect_configuration_name    = "${azurerm_virtual_network.vnet.name}-rdrcfg"
+}
+
+resource "azurerm_application_gateway" "appgw" {
+  name                = "example-appgateway"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+
+  sku {
+    name     = "Standard_Small"
+    tier     = "Standard"
+    capacity = 2
   }
 
-  spec {
-    rule {
-      http {
-        path {
-          backend {
-            service_name = "nginx"
-            service_port = 80
-          }
+  gateway_ip_configuration {
+    name      = "my-gateway-ip-configuration"
+    subnet_id = azurerm_subnet.frontend.id
+  }
 
-          path = "/"
-        }
+  frontend_port {
+    name = local.frontend_port_name
+    port = 80
+  }
 
-        path {
-          backend {
-            service_name = "flask"
-            service_port = 5000
-          }
+  frontend_ip_configuration {
+    name                 = local.frontend_ip_configuration_name
+    public_ip_address_id = azurerm_public_ip.pubip.id
+  }
 
-          path = "/app1"
-        }
-      }
-    }
+  backend_address_pool {
+    name = local.backend_address_pool_name
+  }
+
+  backend_http_settings {
+    name                  = local.http_setting_name
+    cookie_based_affinity = "Disabled"
+    path                  = "/app1"
+    port                  = 5000
+    protocol              = "Http"
+    request_timeout       = 60
+  }
+
+  http_listener {
+    name                           = local.listener_name
+    frontend_ip_configuration_name = local.frontend_ip_configuration_name
+    frontend_port_name             = local.frontend_port_name
+    protocol                       = "Http"
+  }
+
+  request_routing_rule {
+    name                       = local.request_routing_rule_name
+    rule_type                  = "Basic"
+    http_listener_name         = local.listener_name
+    backend_address_pool_name  = local.backend_address_pool_name
+    backend_http_settings_name = local.http_setting_name
   }
 }
 
