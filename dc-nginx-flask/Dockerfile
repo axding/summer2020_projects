@@ -1,6 +1,9 @@
 FROM python:3
 RUN pip install flask
 WORKDIR /code
-COPY ./python /code
+RUN pwd
+RUN ls -r
+COPY ./python/main.py /code/main.py
 ENV FLASK_APP /code/main.py
-RUN flask run --host=0.0.0.0
+CMD ["flask", "run", "--host=0.0.0.0"]
+
