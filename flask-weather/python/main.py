@@ -3,7 +3,7 @@ from flask import Flask, request, render_template
 import utils
 app = Flask(__name__)
 
-@app.route('/', methods = ['POST', 'GET'])
+@app.route('/app', methods = ['POST', 'GET'])
 def search_city():
     if request.method == 'POST':
         city = request.form['city']
