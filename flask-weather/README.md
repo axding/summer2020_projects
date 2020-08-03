@@ -1,0 +1,2 @@
+# Weather App
+Simple weather app that uses Open Weather Map API to retrieve weather related data about certain cities. Enter a city name into the search bar to get information such as temperature, humidity, pressure, sunrise, sunset, etc. Background changes to a photo that fits the weather such as Rain, Snow, Clouds, and Clear. Some other weather types that have no photos default to a blank background.

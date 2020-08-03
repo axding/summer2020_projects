@@ -1,4 +1,6 @@
-FROM jenkins/jenkins:2.222-alpine
-
-ENV JAVA_OPTS="-Duser.timezone=American/Chicago"
-ENV JENKINS_OPTS="--prefix=/jenkins"
+FROM python:3
+RUN pip install flask
+COPY ./jenkins/python/main.py /code/main.py
+ENV FLASK_APP /code/main.py
+WORKDIR /code
+CMD ["flask", "run", "--host=0.0.0.0"]

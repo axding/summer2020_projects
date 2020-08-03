@@ -1,0 +1,40 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <com.microsoft.jenkins.acr.QuickTaskBuilder plugin="azure-container-registry-tasks@0.6.3">
+      <azureCredentialsId>204c1442-2493-4ff6-bb08-04906cf73ee5</azureCredentialsId>
+      <resourceGroupName>--- Select Azure resource group ---</resourceGroupName>
+      <registryName>--- Select Azure Container Registry ---</registryName>
+      <imageNames>
+        <com.microsoft.jenkins.acr.descriptor.Image>
+          <image>flask:0.1</image>
+        </com.microsoft.jenkins.acr.descriptor.Image>
+      </imageNames>
+      <os>Linux</os>
+      <architecture>AMD64</architecture>
+      <variant></variant>
+      <timeout>300</timeout>
+      <noCache>false</noCache>
+      <dockerfile>jenkins/Dockerfile</dockerfile>
+      <sourceType>git</sourceType>
+      <gitRepo>https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git</gitRepo>
+      <gitRefspec></gitRefspec>
+      <gitPath></gitPath>
+      <local>.</local>
+      <tarball></tarball>
+    </com.microsoft.jenkins.acr.QuickTaskBuilder>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

@@ -1,0 +1,24 @@
+Started by user [8mha:////4GdaFIhhlWjXdnF6ueKTlcTiSc/S5qVqgChE2Hv8C/BAAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgZu/dLi1CL9xJTczDwA+rnvwMAAAAA=[0mAmanda Ding
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/acr-push
+Getting source url.
+Using remote git repo https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git as docker build source.
+Build image with source code from https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git.
+Queue a task to ACR testResourceGroup1/testContainerRegistry50 - {"sourceType":"git","gitRepo":"https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git","gitRefspec":"","gitPath":"","localDir":".","tarball":"","imageNames":["flask:0.1"],"buildArguments":[],"noCache":false,"timeout":300,"platform":{"os":"Linux","architecture":"AMD64","variant":""},"dockerFilePath":"/dc-nginx-flask/Dockerfile","canceled":false,"sourceUrl":"https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git"}
+Finished queue an ACR Quick Task: cf5
+Get log link: https://wusmanaged31.blob.core.windows.net/95cc77ee792e4f1d98d72600e452c837-q1nnusljjh/logs/cf5/rawtext.log?sv=2018-03-28&sr=b&sig=a7WaFWA0N9TrIey4ehzdcu%2BeubI22oJ%2FzypEUPtgptk%3D&se=2020-07-31T16%3A54%3A01Z&sp=r
+2020/07/31 16:39:01 Downloading source code...
+2020/07/31 16:39:04 Finished downloading source code
+2020/07/31 16:39:04 Using acb_vol_eec45a43-6165-4ea3-81ca-6267396c1af8 as the home volume
+2020/07/31 16:39:04 Setting up Docker configuration...
+2020/07/31 16:39:05 Successfully set up Docker configuration
+2020/07/31 16:39:05 Logging in to registry: testcontainerregistry50.azurecr.io
+2020/07/31 16:39:06 Successfully logged into testcontainerregistry50.azurecr.io
+2020/07/31 16:39:06 Executing step ID: build. Timeout(sec): 28800, Working directory: '', Network: ''
+2020/07/31 16:39:06 Scanning for dependencies...
+2020/07/31 16:39:07 Output from dependency scanning: error opening dockerfile: /dc-nginx-flask/Dockerfile, error: open /dc-nginx-flask/Dockerfile: no such file or directory
+failed to run step ID: build: failed to scan dependencies: exit status 1
+
+Run ID: cf5 failed after 7s. Error: failed during run, err: exit status 1
+ERROR: ACR Quick Task ended with HasError
+Finished: FAILURE

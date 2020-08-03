@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: yuwzho
+Build-Jdk: 1.8.0_131
+Extension-Name: azure-container-registry-tasks
+Specification-Title: Send a quick task to Azure Container Registry.
+Implementation-Title: azure-container-registry-tasks
+Implementation-Version: 0.6.3
+Plugin-Class: com.microsoft.jenkins.acr.ACRTasksPlugin
+Group-Id: org.jenkins-ci.plugins
+Short-Name: azure-container-registry-tasks
+Long-Name: Azure Container Registry Tasks Plugin
+Url: https://wiki.jenkins.io/display/JENKINS/Azure+Container+Registry+
+ Tasks+Plugin
+Plugin-Version: 0.6.3
+Hudson-Version: 1.651.3
+Jenkins-Version: 1.651.3
+Mask-Classes: com.microsoft.jenkins.azurecommons.core.                
+         com.fasterxml.jackson.                        com.google.comm
+ on.                        com.nimbusds.                        com.m
+ icrosoft.azure.AzureAsyncOperation                        com.microso
+ ft.azure.AzureClient                        com.microsoft.azure.Azure
+ Environment                        com.microsoft.azure.AzureResponseB
+ uilder                        com.microsoft.azure.AzureServiceClient 
+                        com.microsoft.azure.AzureServiceFuture        
+                 com.microsoft.azure.CloudError                       
+  com.microsoft.azure.CloudException                        com.micros
+ oft.azure.ListOperationCallback                        com.microsoft.
+ azure.Page                        com.microsoft.azure.PagedList      
+                   com.microsoft.azure.PollingState                   
+      com.microsoft.azure.Resource                        com.microsof
+ t.azure.SubResource                        com.microsoft.aad.        
+                 com.microsoft.applicationinsights.                   
+      com.microsoft.azure.credentials.                        com.micr
+ osoft.azure.keyvault.                        com.microsoft.azure.mana
+ gement.                        com.microsoft.azure.serializer.       
+                  com.microsoft.azure.storage.                        
+ com.microsoft.rest.                        com.microsoft.azure.contai
+ nerregistry
+Plugin-Dependencies: azure-commons:0.2.5,azure-credentials:1.6.0,scm-a
+ pi:1.3,structs:1.10
+Plugin-Developers: Azure DevOps Team:azure_devops:vscjenkins@microsoft
+ .com
+

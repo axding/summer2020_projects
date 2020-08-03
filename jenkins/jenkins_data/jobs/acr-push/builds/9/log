@@ -1,0 +1,108 @@
+Started by user [8mha:////4GdaFIhhlWjXdnF6ueKTlcTiSc/S5qVqgChE2Hv8C/BAAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgZu/dLi1CL9xJTczDwA+rnvwMAAAAA=[0mAmanda Ding
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/acr-push
+Getting source url.
+Using remote git repo https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git as docker build source.
+Build image with source code from https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git.
+Queue a task to ACR testResourceGroup1/testContainerRegistry50 - {"sourceType":"git","gitRepo":"https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git","gitRefspec":"","gitPath":"","localDir":".","tarball":"","imageNames":["flask:0.1"],"buildArguments":[],"noCache":false,"timeout":300,"platform":{"os":"Linux","architecture":"AMD64","variant":""},"dockerFilePath":"dc-nginx-flask/Dockerfile","canceled":false,"sourceUrl":"https://b1b60f0892aac16bce769682bf081d0ccd302aec@github.com/axding/summer2020_projects.git"}
+Finished queue an ACR Quick Task: cf9
+Get log link: https://wusmanaged31.blob.core.windows.net/95cc77ee792e4f1d98d72600e452c837-q1nnusljjh/logs/cf9/rawtext.log?sv=2018-03-28&sr=b&sig=5iA5WV6mJsyChDXyw3M5F3ZenkqiMfKhHEN02IXWubw%3D&se=2020-07-31T17%3A36%3A12Z&sp=r
+2020/07/31 17:21:11 Downloading source code...
+2020/07/31 17:21:13 Finished downloading source code
+2020/07/31 17:21:14 Using acb_vol_bac871df-a1d1-4fda-8b7d-37986a2dd2c3 as the home volume
+2020/07/31 17:21:14 Setting up Docker configuration...
+2020/07/31 17:21:15 Successfully set up Docker configuration
+2020/07/31 17:21:15 Logging in to registry: testcontainerregistry50.azurecr.io
+2020/07/31 17:21:16 Successfully logged into testcontainerregistry50.azurecr.io
+2020/07/31 17:21:16 Executing step ID: build. Timeout(sec): 28800, Working directory: '', Network: ''
+2020/07/31 17:21:16 Scanning for dependencies...
+2020/07/31 17:21:16 Successfully scanned dependencies
+2020/07/31 17:21:16 Launching container with name: build
+Sending build context to Docker daemon  8.975MB
+
+Step 1/8 : FROM python:3
+3: Pulling from library/python
+31dd5ebca5ef: Pulling fs layer
+3ed641c4ae98: Pulling fs layer
+bcd57146431e: Pulling fs layer
+ac34a4d7c330: Pulling fs layer
+3b0a7e6f20fb: Pulling fs layer
+75d93399dc4e: Pulling fs layer
+28242c4c1c7e: Pulling fs layer
+698b2a81f0a6: Pulling fs layer
+f41fbec5a102: Pulling fs layer
+75d93399dc4e: Waiting
+28242c4c1c7e: Waiting
+698b2a81f0a6: Waiting
+f41fbec5a102: Waiting
+ac34a4d7c330: Waiting
+3b0a7e6f20fb: Waiting
+3ed641c4ae98: Verifying Checksum
+3ed641c4ae98: Download complete
+bcd57146431e: Verifying Checksum
+bcd57146431e: Download complete
+31dd5ebca5ef: Verifying Checksum
+31dd5ebca5ef: Download complete
+ac34a4d7c330: Verifying Checksum
+ac34a4d7c330: Download complete
+75d93399dc4e: Verifying Checksum
+75d93399dc4e: Download complete
+698b2a81f0a6: Verifying Checksum
+698b2a81f0a6: Download complete
+28242c4c1c7e: Verifying Checksum
+28242c4c1c7e: Download complete
+f41fbec5a102: Verifying Checksum
+f41fbec5a102: Download complete
+3b0a7e6f20fb: Verifying Checksum
+3b0a7e6f20fb: Download complete
+31dd5ebca5ef: Pull complete
+3ed641c4ae98: Pull complete
+bcd57146431e: Pull complete
+ac34a4d7c330: Pull complete
+3b0a7e6f20fb: Pull complete
+75d93399dc4e: Pull complete
+28242c4c1c7e: Pull complete
+698b2a81f0a6: Pull complete
+f41fbec5a102: Pull complete
+Digest: sha256:c771865c1d02066d36748c97fcc98984fbaf86f5dde9d49e67e6ba882746c9bc
+Status: Downloaded newer image for python:3
+ ---> 4e2d08f34f6d
+Step 2/8 : RUN pip install flask
+ ---> Running in 931ceaeb5e8c
+Collecting flask
+  Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
+Collecting Jinja2>=2.10.1
+  Downloading Jinja2-2.11.2-py2.py3-none-any.whl (125 kB)
+Collecting click>=5.1
+  Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+Collecting itsdangerous>=0.24
+  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting Werkzeug>=0.15
+  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+Collecting MarkupSafe>=0.23
+  Downloading MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl (32 kB)
+Installing collected packages: MarkupSafe, Jinja2, click, itsdangerous, Werkzeug, flask
+Successfully installed Jinja2-2.11.2 MarkupSafe-1.1.1 Werkzeug-1.0.1 click-7.1.2 flask-1.1.2 itsdangerous-1.1.0
+Removing intermediate container 931ceaeb5e8c
+ ---> 5d5d182dfdac
+Step 3/8 : WORKDIR /code
+ ---> Running in 9e1f4b1f8ac6
+Removing intermediate container 9e1f4b1f8ac6
+ ---> a4804c2094de
+Step 4/8 : RUN pwd
+ ---> Running in a5952d25879e
+/code
+Removing intermediate container a5952d25879e
+ ---> 1e2b12e6d04a
+Step 5/8 : RUN ls -r
+ ---> Running in 69b1476f8acd
+Removing intermediate container 69b1476f8acd
+ ---> 764653f2f747
+Step 6/8 : COPY ./python/main.py /code/main.py
+COPY failed: stat /var/lib/docker/tmp/docker-builder538515665/python/main.py: no such file or directory
+2020/07/31 17:21:52 Container failed during run: build. No retries remaining.
+failed to run step ID: build: exit status 1
+
+Run ID: cf9 failed after 42s. Error: failed during run, err: exit status 1
+ERROR: ACR Quick Task ended with HasError
+Finished: FAILURE
