@@ -1,0 +1,58 @@
+# initialize helm provider to access new deployed cluster
+provider "helm" {
+  version        = ">=0.9"
+  install_tiller = true
+   kubernetes {
+    load_config_file  = false
+    host              = azurerm_kubernetes_cluster.test.kube_config[0].host
+    client_certificate = base64decode(azurerm_kubernetes_cluster.test.kube_config[0].client_certificate)
+    client_key = base64decode(azurerm_kubernetes_cluster.test.kube_config[0].client_key)
+    cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.k8s.kube_config[0].cluster_ca_certificate)
+  } 
+}
+
+data "helm_repository" "helm_appgw" {
+  name = "application-gateway-kubernetes-ingress"
+  url  = "https://appgwingress.blob.core.windows.net/ingress-azure-helm-package/"
+}
+
+resource "helm_release" "agw_ingress" {
+  name       = "application-gateway-kubernetes-ingress"
+  repository = data.helm_repository.helm_appgw.name
+  chart      = "ingress-azure"
+  version    = "0.9.0"
+
+  values = [
+    <<EOF
+verbosityLevel: 3
+appgw:
+    # subscriptionId: ${var.subscription_id}
+    subscriptionId: a32aef5e-1806-4033-bc71-080bfabf6557
+    resourceGroup: ${var.resource_group_name}
+    #resourceGroup: testResourceGroup1
+    name: ${var.app_gateway_name}
+    #name: ApplicationGateway1
+    usePrivateIP: false
+    shared: false
+armAuth:
+    ## change to service principal
+    type: aadPodIdentity
+    identityResourceID: ${azurerm_user_assigned_identity.testIdentity.id}
+    identityClientID:  ${azurerm_user_assigned_identity.testIdentity.client_id}
+    # type: servicePrincipal
+    # secretJSON: ewogICJjbGllbnRJZCI6ICI2YTE4Yzk5OC05ZDEyLTRiZjQtYTgzNi0wNDdkNjYxOGVlM2EiLAogICJjbGllbnRTZWNyZXQiOiAiS29mR3YxV1N3dW9nRHJYMlZmOGM1dF9GT2Q0T3drUEJSSyIsCiAgInN1YnNjcmlwdGlvbklkIjogImEzMmFlZjVlLTE4MDYtNDAzMy1iYzcxLTA4MGJmYWJmNjU1NyIsCiAgInRlbmFudElkIjogIjlkZGFhY2ExLTM4OWYtNGNiMS1hMTEzLTA4MWJlNmNjMjVmYyIsCiAgImFjdGl2ZURpcmVjdG9yeUVuZHBvaW50VXJsIjogImh0dHBzOi8vbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbSIsCiAgInJlc291cmNlTWFuYWdlckVuZHBvaW50VXJsIjogImh0dHBzOi8vbWFuYWdlbWVudC5henVyZS5jb20vIiwKICAiYWN0aXZlRGlyZWN0b3J5R3JhcGhSZXNvdXJjZUlkIjogImh0dHBzOi8vZ3JhcGgud2luZG93cy5uZXQvIiwKICAic3FsTWFuYWdlbWVudEVuZHBvaW50VXJsIjogImh0dHBzOi8vbWFuYWdlbWVudC5jb3JlLndpbmRvd3MubmV0Ojg0NDMvIiwKICAiZ2FsbGVyeUVuZHBvaW50VXJsIjogImh0dHBzOi8vZ2FsbGVyeS5henVyZS5jb20vIiwKICAibWFuYWdlbWVudEVuZHBvaW50VXJsIjogImh0dHBzOi8vbWFuYWdlbWVudC5jb3JlLndpbmRvd3MubmV0LyIKfQo=
+rbac:
+    enabled: false 
+aksClusterConfiguration:
+    apiServerAddress: ${azurerm_kubernetes_cluster.test.kube_config[0].host}
+EOF
+    ,
+  ]
+  depends_on = [
+    kubernetes_storage_class.pvc,
+    kubernetes_cluster_role.pvc,
+    kubernetes_cluster_role_binding.pvc,
+    kubernetes_persistent_volume_claim.pvc,
+    null_resource.main
+  ]
+}
