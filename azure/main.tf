@@ -84,7 +84,7 @@ resource "kubernetes_pod" "flask-pod" {
             name  = "flask"
 
             port {
-              container_port = 80
+              container_port = 5000
             }
 
 	    volume_mount {
