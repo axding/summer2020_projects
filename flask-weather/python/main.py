@@ -12,7 +12,7 @@ def search_city():
         }
         return render_template('index.html', data = data) 
     
-    API_KEY = '73d36912a1a26769c7b79476c4512bd9'  # initialize your key here
+    API_KEY = '' # my API key
 
     # call API and convert response into Python dictionary
     url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={API_KEY}'
